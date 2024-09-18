@@ -1,0 +1,61 @@
+<div class="col-12 mt-4">
+  <h4 class="text-center mb-4">Create Restaurant</h4>
+  <form #createForm="ngForm" (ngSubmit)="onCreateRestaurant(createForm)"
+    class="restaurant-form mt-4 p-4 border rounded shadow-sm bg-light animate__animated animate__fadeIn animate__delay-1s">
+    <div class="form-group">
+      <label for="restaurantname">Restaurant Name:</label>
+      <input type="text" id="restaurantname" name="restaurantname" class="form-control" ngModel required
+        placeholder="Enter restaurant name">
+    </div>
+    <div class="form-group mt-3">
+      <label for="reslogo">Restaurant Icon:</label>
+      <input type="file" id="reslogo" name="reslogo" class="form-control" (change)="onFileChange($event)"
+        [(ngModel)]="files" accept='image/*'>
+    </div>
+    <div class="form-group mb-3">
+      <label for="description" class="form-label">Restaurant Description:</label>
+      <textarea id="description" name="description" class="form-control" ngModel required placeholder="Enter description"></textarea>
+    </div>
+    <div class="mt-4 text-center">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </form>
+  <p class="text-danger text-center mt-3">{{error_msg}}</p>
+</div>
+
+<div class="table-responsive mt-5">
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th class="text-center">Sno</th>
+        @for (header of tbl_headers; track $index) {
+        <th class="text-center">{{header['headerName']}}</th>
+        }
+        <th class="text-center">Edit</th>
+        <th class="text-center">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of restaurant_list; track $index; let i = $index) {
+      <tr>
+        <td class="text-center">{{i + 1}}</td>
+        @for (header of tbl_headers; track $index) {
+        @if (header['headerKey'] == 'res_logo') {
+        <td class="text-center">
+          <img src="{{item[header['headerKey']]}}" alt="Restaurant Logo" class="img-thumbnail logo-img">
+        </td>
+        } @else {
+        <td class="text-center">{{item[header['headerKey']]}}</td>
+        }
+        }
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning" (click)="onEditRestaurant(item)">Edit</button>
+        </td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-danger" (click)="onDeleteRestaurant(item.id)">Delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

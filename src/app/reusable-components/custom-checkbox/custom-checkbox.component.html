@@ -1,0 +1,17 @@
+@if (chkbox_mdl) {
+<div>
+  @if (chkbox_mdl['labelText']) {
+  <label>{{chkbox_mdl['labelText']}}
+    @if (chkbox_mdl['isMandatory']) {
+    <span class="text-danger">*</span>
+    }
+  </label>
+  }
+  @for (item of chkbox_mdl['dataArr']; track $index) {
+  <input [type]="'checkbox'" [ngStyle]="{'cursor': chkbox_mdl['isDisabled'] ? 'not-allowed' : 'pointer'}"
+    [disabled]="chkbox_mdl['isDisabled']" [value]="item[chkbox_mdl['valueKey']]"
+    [checked]="isSelected(item[chkbox_mdl['valueKey']],item)" (change)="onCheckEvent($event,item)">
+  <label>{{item[chkbox_mdl['displayKey']]}}</label>
+  }
+</div>
+}

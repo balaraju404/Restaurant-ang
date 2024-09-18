@@ -1,0 +1,99 @@
+<div class="col-12 mt-4">
+  <h4 class="text-center mb-4">Create Category</h4>
+  <form #createForm="ngForm" (ngSubmit)="onCreateProducts(createForm)"
+        class="restaurant-form mt-4 p-4 border rounded shadow-sm bg-light animate__animated animate__fadeIn animate__delay-1s">
+
+    <!-- Category Dropdown -->
+    <div class="form-group mb-3">
+      <label for="categoryDropdown" class="form-label">Category:</label>
+      <app-custom-dropdown [dd_model]="dd_mdl_categories" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+    </div>
+
+    <!-- Product Name -->
+    <div class="form-group mb-3">
+      <label for="productName" class="form-label">Product Name:</label>
+      <input type="text" id="productName" name="productName" class="form-control" ngModel required placeholder="Enter product name">
+    </div>
+
+    <!-- Product Icon -->
+    <div class="form-group mb-3">
+      <label for="productImg" class="form-label">Product Icon:</label>
+      <input type="file" id="productImg" name="productImg" class="form-control" (change)="onFileChange($event)" accept="image/*">
+    </div>
+
+    <!-- Product Price -->
+    <div class="form-group mb-3">
+      <label for="price" class="form-label">Product Price:</label>
+      <input type="text" id="price" name="price" class="form-control" ngModel required placeholder="Enter price">
+    </div>
+
+    <!-- Product Description -->
+    <div class="form-group mb-3">
+      <label for="description" class="form-label">Product Description:</label>
+      <textarea id="description" name="description" class="form-control" ngModel required placeholder="Enter description"></textarea>
+    </div>
+
+    <!-- Product Images -->
+    <div class="form-group mb-3">
+      <label for="productImgs" class="form-label">Product Images:</label>
+      <input type="file" id="productImgs" name="productImgs" class="form-control" (change)="onMultipleFileChange($event)" multiple accept="image/*">
+      <small class="form-text text-muted mt-2">You can select multiple images (use Ctrl or Shift to select more than one).</small>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </form>
+
+  <!-- Error Message -->
+  <p class="text-danger text-center mt-3">{{ error_msg }}</p>
+</div>
+
+
+
+<div class="table-responsive mt-5">
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th class="text-center">Sno</th>
+        @for (header of tbl_headers; track $index) {
+        <th class="text-center">{{header['headerName']}}</th>
+        }
+        <th class="text-center">Edit</th>
+        <th class="text-center">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (table_data.length === 0) {
+      <tr>
+        <td colspan="100%" class="text-center">No Records Found</td>
+      </tr>
+      }
+      @for (item of table_data; track $index;let i=$index) {
+      <tr>
+        <td class="text-center">{{i + 1}}</td>
+        @for (header of tbl_headers; track $index) {
+        <td class="text-center">
+          @if (header['headerKey'] === 'product_img') {
+          <img [src]="item[header['headerKey']]" alt="Cat Logo" class="img-thumbnail logo-img">
+          }
+          @else if (header['headerKey'] === 'description') {
+            <textarea>{{item[header['headerKey']]}}</textarea>
+          }
+          @else {
+          {{item[header['headerKey']]}}
+          }
+        </td>
+        }
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning" (click)="onEditCategory(item)">Edit</button>
+        </td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-danger" (click)="onDeleteCategory(item.id)">Delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

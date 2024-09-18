@@ -1,0 +1,24 @@
+@if (dd_model) {
+<div class="{{dd_model['customCssClass']}}"
+[ngClass]="{'dropdown-container': true, 'disabled': dd_model['isDisabled']}">
+  @if (dd_model['labelText']) {
+  <label class="{{dd_model['customCssPrimary']}}">{{dd_model['labelText']}}
+    @if (dd_model['isMandatory']) {
+    <span class="text-danger">*</span>
+    }
+  </label>
+  }
+  <select class="{{dd_model['customCssSecondary']}}"
+  [ngStyle]="{'cursor': dd_model['isDisabled'] ? 'not-allowed' : 'pointer'}"
+  [disabled]="dd_model['isDisabled']"
+  [(ngModel)]="dd_model['selectedValue']"
+  (change)="onChangeEvent($event)">
+    @if (dd_model!['customSelectName']?.length>0) {
+      <option value="-1">{{ dd_model['customSelectName'] || 'Select'}}</option>
+    }
+    @for (item of dd_model['dataArr']; track $index) {
+    <option [ngStyle]="{'cursor':'pointer'}" value="{{item[dd_model['valueKey']]}}">{{item[dd_model['displayKey']]}}</option>
+    }
+  </select>
+</div>
+}

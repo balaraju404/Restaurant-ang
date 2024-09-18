@@ -1,0 +1,27 @@
+.overflow-auto {
+  overflow-x: auto;
+  padding: 10px 0; /* Add some vertical padding */
+}
+
+.input-group {
+  max-width: 100%;
+}
+
+.restaurant-card {
+  box-shadow: 0 0 0.1rem black !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}

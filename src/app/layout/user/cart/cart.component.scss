@@ -1,0 +1,27 @@
+@import '../../../../styles.scss';
+
+.payment-btn {
+  background-color: #4caf50; /* Success green color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); /* Greenish glow */
+  }
+
+  &:active {
+    background-color: #3e8e41; /* Darkest green when pressed */
+    transform: scale(1); /* Reset scale on click */
+  }
+}
+

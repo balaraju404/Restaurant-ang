@@ -1,0 +1,53 @@
+<div class="bg-light sidebar p-3">
+  <ul class="nav flex-column">
+    <!-- Links for System Admin (role_id == 1) -->
+    @if (role_id==1) {
+    <li class="nav-item">
+      <a class="nav-link" routerLink="user-setup">User Management</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="restaurant-setup">Restaurant Management</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="assign-restaurant-user">Assign Restaurant to User</a>
+    </li>
+    }
+    <!-- Links for Restaurant Admin (role_id == 2) -->
+    @if(role_id == 2){
+    <li class="nav-item">
+      <a class="nav-link" routerLink="create-categories">Manage Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="assign-categories-restaurant">Assign Categories to Restaurant</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="create-products">Manage Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="setup">Restaurant Setup</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="user-setup">Restaurant User Management</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="res-orders">Handle Orders</a>
+    </li>
+    }
+
+    <!-- Links for User (role_id == 3) -->
+    @if(role_id == 3){
+    <li class="nav-item">
+      <a class="nav-link" routerLink="restaurants">Restaurants</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="categories">Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="cart">View Cart</a>
+    </li>
+  }
+  <li class="nav-item">
+    <a class="nav-link" routerLink="transactions">Transactions</a>
+  </li>
+  </ul>
+</div>

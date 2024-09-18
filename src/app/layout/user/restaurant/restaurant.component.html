@@ -1,0 +1,79 @@
+<div class="col-12 mt-4">
+  <!-- Restaurant Header and Search Input -->
+  <div class="row mb-4 align-items-center">
+    <!-- Restaurant Header -->
+    <div class="col-md-6 text-center d-flex align-items-center justify-content-center">
+      <img [src]="restaurant_data['res_logo']" alt="Restaurant Logo" class="me-3" style="height: 50px; width: 50px;">
+      <h4 class="mb-0">{{ restaurant_data['restaurant_name'] }}</h4>
+    </div>
+
+    <!-- Search Input -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <input type="text" id="res_search" class="form-control" placeholder="Search"
+          (input)="onSearch($event.target.value)">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Restaurant Categories List -->
+  <div class="overflow-auto mb-4" style="white-space: nowrap;">
+    <div class="d-flex">
+      <!-- If no categories are found -->
+      @if(restaurant_categories.length === 0){
+      <p>No categories found.</p>
+      }
+
+      <!-- Categories List -->
+      @for (item of restaurant_categories; track $index) {
+      <div class="card restaurant-card shadow-sm border-0 me-2 {{$first?'ms-2':''}}"
+        style="min-width: 150px; flex: 0 0 auto;">
+        <div class="card-body text-center">
+          <img [src]="item['cat_img']" alt="Category Logo" class="img-fluid rounded-circle mb-2"
+            style="height: 100px; width: 100px; object-fit: cover;">
+          <h5 class="card-title mt-2">{{ item['cat_name'] }}</h5>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Restaurant Products List -->
+  <div class="row">
+    @for (cat of restaurant_categories; track $index) {
+    @if(checkCategory(cat['cat_id'])){
+    <h4>{{cat.cat_name}}</h4>
+    @for (item of restaurant_products; track $index) {
+    @if (item['cat_id'] == cat['cat_id']) {
+    <div class="col-md-4 col-sm-6 mb-4">
+      <div class="card h-100 text-center p-3 shadow-sm border-0">
+        <!-- Product Image -->
+        <img [src]="item['product_img']" alt="product img" class="img-fluid rounded-circle mx-auto"
+          style="height: 100px; width: 100px; object-fit: cover;">
+
+        <!-- Product Information -->
+        <div class="card-body">
+          <h5 class="card-title">{{ item['product_name'] }}</h5>
+          <p class="text-muted mb-1">Price: &#8377; {{ item['price'] }}</p>
+          <p class="card-text text-truncate">{{ item['description'] | ShortenString: 200 }}</p>
+        </div>
+
+        <!-- Quantity and Buttons -->
+        <div class="d-grid gap-2">
+          <div class="d-flex justify-content-center align-items-center mb-3">
+            <button class="btn btn-outline-secondary btn-sm me-2" (click)="handleQuantity(item,0)">-</button>
+            <span class="mx-2">{{ item['product_qty'] }}</span>
+            <button class="btn btn-outline-secondary btn-sm ms-2" (click)="handleQuantity(item,1)">+</button>
+          </div>
+          <button class="btn btn-primary">View</button>
+          <button class="btn btn-outline-secondary" (click)="postCartData(item)">Add To Cart</button>
+        </div>
+      </div>
+    </div>
+    }
+    }
+    }
+    }
+  </div>
+</div>

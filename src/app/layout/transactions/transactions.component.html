@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4 text-primary">Transactions</h2>
+  <ul class="list-unstyled">
+    @for (item of orders_data; track $index) {
+    <li class="mb-3">
+      <div class="card shadow-sm border-primary">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">Order #{{ item['trans_id'] }}</h5>
+        </div>
+        <div class="card-body p-2">
+          @if(roleId==2){
+          <p class="card-text mb-1"><strong>User Name:</strong> {{ item['user_name'] }}</p>
+          }@else if (roleId==3) {
+          <p class="card-text mb-1"><strong>Restaurant Name:</strong> {{ item['restaurant_name'] }}</p>
+          }
+          <h6 class="card-subtitle mb-2 text-secondary">
+            <strong>Total Price:</strong> &#8377; {{ item['total_price'] }}
+          </h6>
+
+          <!-- Scrollable Products List -->
+          <div class="scrollable-product-list">
+            <ul class="list-group list-group-flush p-0">
+              @for (product of item['products_data']; track $index) {
+              <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                <div>
+                  <h6 class="mb-0 text-info">Product: {{ product['product_name'] }}</h6>
+                  <p class="mb-0 text-muted"><strong>Quantity:</strong> {{ product['product_qty'] }}</p>
+                  <p class="mb-0 text-muted"><strong>Price:</strong> &#8377; {{ product['price'] }}</p>
+                </div>
+                <span class="badge bg-info text-white">Qty: {{ product['product_qty'] }}</span>
+              </li>
+              }
+            </ul>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-between mt-2">
+            @if (item['status']==1) {
+            <button class="btn btn-outline-primary w-100 me-2 btn-sm">Pending</button>
+            }
+            @else if (item['status']==2) {
+            <button class="btn btn-outline-success w-100 me-2 btn-sm">Accepted</button>
+            }@else if (item['status']==3) {
+            <button class="btn btn-outline-danger w-100 btn-sm">Rejected</button>
+            }@else if(item['status']==4){
+            <button class="btn btn-outline-warning w-100 btn-sm">Failed</button>
+            }
+          </div>
+        </div>
+        <div class="card-footer bg-light text-muted text-center p-1">
+          Order Date: {{ item['transaction_date'] }}
+        </div>
+      </div>
+    </li>
+    }
+  </ul>
+</div>

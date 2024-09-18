@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4 text-primary">Orders</h2>
+  <div class="row">
+    @for (item of orders_data; track $index) {
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-lg border-primary">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">Order #{{ item['trans_id'] }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><strong>User Name:</strong> {{ item['user_name'] }}</p>
+          <h6 class="card-subtitle mb-3 text-secondary">
+            <strong>Total Price:</strong> &#8377; {{ item['total_price'] }}
+          </h6>
+
+          <!-- Scrollable Products List -->
+          <div class="scrollable-product-list">
+            <ul class="list-group list-group-flush">
+              @for (product of item['products_data']; track $index) {
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="mb-0 text-info">Product: {{ product['product_name'] }}</h6>
+                  <p class="mb-0 text-muted"><strong>Quantity:</strong> {{ product['product_qty'] }}</p>
+                  <p class="mb-0 text-muted"><strong>Price:</strong> &#8377; {{ product['price'] }}</p>
+                </div>
+                <span class="badge bg-info text-white">Qty: {{ product['product_qty'] }}</span>
+              </li>
+              }
+            </ul>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-outline-success w-100 me-2" (click)="handleOrder(item,2)">Accept</button>
+            <button class="btn btn-outline-danger w-100" (click)="handleOrder(item,3)">Reject</button>
+          </div>
+        </div>
+        <div class="card-footer bg-light text-muted text-center">
+          Order Date: {{ item['transaction_date'] }}
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,15 @@
+@if (tf_model) {
+<div>
+  @if (tf_model['labelText']) {
+  <label>{{tf_model['labelText']}}
+    @if (tf_model['isMandatory']) {
+    <span class="text-danger">*</span>
+    }
+  </label>
+  }@if(tf_model['type']=='file'){
+  <input type="file" [disabled]="tf_model['isDisabled']" [(ngModel)]="tf_model['selectedValue']" (change)="onFileChangeEvent($event)" [accept]="tf_model['acceptedFormats']?tf_model['acceptedFormats']:'*/*'" />
+  }@else {
+  <input [type]="tf_model['type']" [disabled]="tf_model['isDisabled']" [(ngModel)]="tf_model['selectedValue']" (input)="onChangeEvent($event)">
+  }
+</div>
+}

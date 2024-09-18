@@ -1,0 +1,17 @@
+<div class="col-12 mt-4">
+  <h4 class="text-center mb-4">Assign Restaurant to User</h4>
+  <div class="row justify-content-center">
+    <div class="col-12 mb-3">
+      <app-custom-dropdown [dd_model]="dd_mdl_restaurants" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+    </div>
+    <div class="col-12 mb-3">
+      <app-custom-dropdown [dd_model]="dd_mdl_users" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+    </div>
+    <div class="col-12 mb-3">
+      <app-custom-dropdown [dd_model]="dd_mdl_role" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+    </div>
+    <div class="col-12 mt-3 text-center">
+      <button class="btn btn-primary" (click)="assignResToUser()">Save</button>
+    </div>
+  </div>
+</div>

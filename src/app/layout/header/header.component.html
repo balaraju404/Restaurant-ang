@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+  <div class="container-fluid">
+    <!-- Conditional restaurant logo and name -->
+    <div class="d-flex align-items-center">
+      @if (res_user_status) {
+      @if(resLogo){
+      <img [src]="resLogo" alt="Logo" class="rounded-circle me-2" style="height: 30px; width: 30px;" />
+      }
+      <a class="navbar-brand">{{resName}}</a>
+      }
+      <a class="navbar-brand ms-3" href="#">Restaurant App</a>
+    </div>
+
+    <!-- Navbar toggler for smaller screens -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Left-side links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+
+      <!-- Conditional dropdown for restaurants -->
+      @if (res_user_status) {
+      <app-custom-dropdown [dd_model]="dd_mdl_restaurants" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+      }
+
+      <!-- Right-side user information -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item d-flex align-items-center">
+          <span class="navbar-text me-2">{{username}}</span>
+          <img src="path/to/user-image" alt="User" class="rounded-circle" style="height: 30px; width: 30px; background-color: red;" />
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-primary ms-3" (click)="onLogout()">
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

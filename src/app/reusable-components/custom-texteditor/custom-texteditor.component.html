@@ -1,0 +1,50 @@
+<!-- HTML Template -->
+<div class="container mt-4">
+  @if (txt_editor_mdl!['labelText']) {
+    <label for="txt_editor_mdl">{{txt_editor_mdl['labelText']}}
+      @if (txt_editor_mdl['isMandatory']==true) {
+        <span>*</span>
+      }
+    </label>
+  }
+  <div class="row">
+    <!-- Toolbar Section -->
+    <div class="col-12 mb-3">
+      <div class="btn-toolbar mb-3 toolbar-custom" role="toolbar">
+        <div class="btn-group me-2" role="group">
+          <button type="button" class="btn btn-secondary" (click)="execCommand('undo')"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('redo')"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+        </div>
+        <div class="btn-group me-2" role="group">
+          <button type="button" class="btn btn-secondary" (click)="execCommand('bold')"><i class='fa fa-bold'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('italic')"><i class='fa fa-italic'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('underline')"><i class='fa fa-underline'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('strikeThrough')"><i class='fa fa-strikethrough'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('subscript')"><i class='fa fa-subscript'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('superscript')"><i class='fa fa-superscript'></i></button>
+        </div>
+        <div class="btn-group me-2" role="group">
+          <button type="button" class="btn btn-secondary" (click)="execCommand('justifyLeft')"><i class='fa fa-align-left'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('justifyCenter')"><i class='fa fa-align-center'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('justifyRight')"><i class='fa fa-align-right'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('justifyFull')"><i class='fa fa-align-justify'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('indent')"><i class='fa fa-indent'></i></button>
+          <button type="button" class="btn btn-secondary" (click)="execCommand('outdent')"><i class='fa fa-outdent'></i></button>
+        </div>
+        <div class="btn-group" role="group">
+          <app-custom-dropdown [dd_model]="dd_mdl_fontsize" (eventHandlerEmitter)="changeFontSize($event)"></app-custom-dropdown>
+          <app-custom-dropdown [dd_model]="dd_mdl_headings" (eventHandlerEmitter)="changeHeading($event)"></app-custom-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editor Section -->
+    <div class="col-12">
+      <div class="form-floating mb-3 editor-container">
+        <div #editor contenteditable="true" class="form-control editor" (input)="onChangeEvent()" >
+          Start typing here...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

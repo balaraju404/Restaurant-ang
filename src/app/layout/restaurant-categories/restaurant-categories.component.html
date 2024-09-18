@@ -1,0 +1,12 @@
+<div class="col-12 mt-4">
+  <h4 class="text-center mb-4">Assign Category to Restaurant</h4>
+  <div class="row justify-content-center">
+    <div class="col-12 mb-3">
+      <label>Categories</label>
+      <app-custom-dropdown [dd_model]="dd_mdl_categories" (eventHandlerEmitter)="eventHandler($event)"></app-custom-dropdown>
+    </div>
+    <div class="col-12 mt-3 text-center">
+      <button class="btn btn-primary" (click)="assignCategotyToRes()">Save</button>
+    </div>
+  </div>
+</div>

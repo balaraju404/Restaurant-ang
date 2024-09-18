@@ -1,0 +1,82 @@
+<p>custom-table works!</p>
+@if (tbl_mdl) {
+<div>
+  <table>
+    <tr>
+      @for (header of tbl_mdl['tableHeaders']; track $index;let index = $index) {
+        @if (header['isHeaderChkbox']) {
+          <th>
+            <input type="checkbox" name="{{header['columnKey']+'_check_all'}}" id="{{header['columnKey']+'_check_all'}}" [checked]="isAllChecked(header.columnKey)" (change)="allCheckboxEvent($event,header['tag'])">
+            <label for="{{header['columnKey']+'_check_all'}}">{{header['headerName']}}</label>
+            <app-custom-checkbox [chkbox_mdl]="header['select_all_chkbox']" (eventHandlerEmitter)="allCheckboxEvent($event,tag)"></app-custom-checkbox>
+          </th>
+        }@else {
+          <th>{{ header['headerName'] }}</th>
+        }
+      }
+    </tr>
+    @for (item of tbl_mdl['dataArr']; track $index;let i = $index) {
+    <tr>
+      @for (item1 of tbl_mdl['tableHeaders']; track $index1) {
+      @if (item1['columnKey'].includes('sno')) {
+      <td>{{i+1}}</td>
+      }
+      @if (!(item1['columnKey'].includes('sno')) && item1['inputElement']==0) {
+      <td>{{ item[item1['columnKey']] }}</td>
+      }
+      @if (item1['inputElement']==1) {
+      <td>
+        @if (item['chkbox_mdl_'+item1['columnKey']]) {
+          <app-custom-checkbox [chkbox_mdl]="item['chkbox_mdl_'+item1['columnKey']]" (eventHandlerEmitter)="onChangeEvent($event,i,item1['columnKey'])"></app-custom-checkbox>
+        }@else {
+          <span>-</span>
+        }
+      </td>
+      }
+      }
+    </tr>
+    }
+  </table>
+</div>
+}
+
+<!--
+<p>custom-table works!</p>
+<div *ngIf="tbl_mdl">
+  <table>
+    <tr>
+      <th *ngFor="let header of tbl_mdl.tableHeaders; let index = index">
+        <ng-container *ngIf="header.isHeaderChkbox">
+          <input type="checkbox"
+                 [name]="header.columnKey + '_check_all'"
+                 [id]="header.columnKey + '_check_all'"
+                 [checked]="isAllChecked(header.columnKey)"
+                 (change)="allCheckboxEvent($event, header.tag)">
+          <label [for]="header.columnKey + '_check_all'">{{ header.headerName }}</label>
+        </ng-container>
+        <ng-container *ngIf="!header.isHeaderChkbox">
+          {{ header.headerName }}
+        </ng-container>
+      </th>
+    </tr>
+    <tr *ngFor="let item of tbl_mdl.dataArr; let i = index">
+      <td *ngFor="let item1 of tbl_mdl.tableHeaders; let index1 = index">
+        <ng-container *ngIf="item1.columnKey.includes('sno')">
+          {{ i + 1 }}
+        </ng-container>
+        <ng-container *ngIf="!item1.columnKey.includes('sno') && item1.inputElement === 0">
+          {{ item[item1.columnKey] }}
+        </ng-container>
+        <ng-container *ngIf="item1.inputElement === 1">
+          <app-custom-checkbox *ngIf="item['chkbox_mdl_' + item1.columnKey]"
+                               [chkbox_mdl]="item['chkbox_mdl_' + item1.columnKey]"
+                               (eventHandlerEmitter)="onChangeEvent($event, i, item1.columnKey)">
+          </app-custom-checkbox>
+          <ng-container *ngIf="!item['chkbox_mdl_' + item1.columnKey]">
+            <span>-</span>
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </table>
+</div> -->

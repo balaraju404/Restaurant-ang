@@ -1,0 +1,54 @@
+/* Default styling for the dropdown container */
+.dropdown-container {
+  // margin-bottom: 1rem;
+}
+
+.dropdown-container label {
+  display: block;
+  font-weight: bold;
+}
+
+.dropdown-container select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: var(--bs-body-bg);
+}
+
+.disabled select {
+  background-color: #f5f5f5;
+}
+
+/* Add custom styling for select dropdown */
+.custom-select {
+  font-size: 1rem;
+}
+
+.custom-class {
+  /* Add additional custom styles here */
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.custom-drpdwn-primary {
+  border: 1px solid #ced4da; /* Light grey border */
+  background-color: #ffffff; /* White background */
+  color: #495057; /* Darker grey text */
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.5rem; /* Padding for content */
+  font-size: 1rem; /* Font size */
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.custom-drpdwn-primary:hover {
+  background-color: #f8f9fa; /* Very light grey for hover effect */
+  color: #212529; /* Almost black text */
+}
+
+.custom-drpdwn-primary:disabled {
+  background-color: #f5f5f5; /* Light grey for disabled state */
+  color: #adb5bd; /* Grey text for disabled state */
+  cursor: not-allowed; /* Change cursor for disabled state */
+}
+
