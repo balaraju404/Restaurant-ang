@@ -19,7 +19,6 @@ export class RestaurantComponent {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.res_id = params['res_id']
       this.getRestaurant();
       this.getResCategories();
@@ -28,7 +27,6 @@ export class RestaurantComponent {
   }
   getRestaurant() {
     this.resService.getRestaurant(this.res_id).subscribe((res) => {
-      console.log(res);
       if (res['status']) {
         this.restaurant_data = res['data']
       }
@@ -46,7 +44,6 @@ export class RestaurantComponent {
   getResProducts() {
     const params = { 'res_id': this.res_id }
     this.resService.getResProducts(params).subscribe((res: any) => {
-      console.log(res);
       if (res['status']) {
         this.restaurant_products = res['data'];
         this.getUserCartData()
@@ -65,7 +62,6 @@ export class RestaurantComponent {
 
   }
   onSearch(event: string) {
-    console.log(event);
 
   }
   checkCategory(cat_id: any) {
@@ -94,7 +90,6 @@ export class RestaurantComponent {
     const params = { user_id: user_id, res_id: item['res_id'], cat_id: item['cat_id'], product_id: item['product_id'], product_qty: item['product_qty'], status: 1 };
     this.resService.postCartData(params).subscribe((res: any) => {
       if (res['status']) {
-        console.log(res);
         this.getUserCartData()
         alert(res['msg'])
       } else {
@@ -106,7 +101,6 @@ export class RestaurantComponent {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id'];
     const params = { user_id: user_id, res_id: this.res_id };
     this.resService.getUserCartData(params).subscribe((res: any) => {
-      console.log(res);
       if (res['status']) {
         this.modifyProductsData(res['data'])
       }

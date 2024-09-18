@@ -4,6 +4,7 @@ import { DBManagerService } from '../../../utils/db-manager.service';
 import { Constants } from '../../../utils/constants.service';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { SocketService } from '../../webservice/socket-io.service';
 
 @Component({
   selector: 'app-handle-restaurant-orders',
@@ -14,34 +15,27 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
   orders_data: any[] = [];
   private ordersSubscription: Subscription;
 
-  constructor(private resService: RestaurantService) { }
+  constructor(private resService: RestaurantService, private socketService: SocketService) { }
 
   ngOnInit() {
-    this.startPolling();
+    this.ordersSubscription = this.socketService.getOrderUpdates().subscribe(data => {
+      if (data) {
+        const res_id = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)['res_id']
+        if (typeof data == 'string') {
+          data = JSON.parse(data);
+        }
+        if (data['res_id'] == res_id) {
+          this.getOrdersData()
+          alert('New Order Received')
+        }
+      }
+    });
   }
 
   ngOnDestroy() {
     if (this.ordersSubscription) {
       this.ordersSubscription.unsubscribe();
     }
-  }
-
-  startPolling() {
-    const res_id = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)['res_id'];
-    const params = { 'res_id': res_id, status: 1 };
-
-    this.ordersSubscription = interval(2000).pipe(
-      switchMap(() => this.resService.getResOrders(params))
-    ).subscribe(
-      (res: any) => {
-        if (res['status']) {
-          this.orders_data = res['data'];
-        }
-      },
-      (error) => {
-        console.error('Error fetching orders data', error);
-      }
-    );
   }
 
   handleOrder(params, status) {

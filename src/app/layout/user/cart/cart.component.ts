@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RestaurantService } from '../../restaurant-setup/restaurant.service';
 import { DBManagerService } from '../../../utils/db-manager.service';
 import { Constants } from '../../../utils/constants.service';
-import { WebSocketService } from '../../webservice/webservice.service';
+import { SocketService } from '../../webservice/socket-io.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +12,7 @@ import { WebSocketService } from '../../webservice/webservice.service';
 export class CartComponent {
   userCartData: any[] = []
 
-  constructor(private resService: RestaurantService, private webSocketService: WebSocketService) { }
+  constructor(private resService: RestaurantService,private socketService: SocketService) { }
 
   ngOnInit() {
     this.getUserCartData()
@@ -71,15 +71,7 @@ export class CartComponent {
       }
     })
   }
-  sendNewOrder() {
-    const newOrder = {
-      customerName: 'Jane Doe',
-      items: ['Burger', 'Fries'],
-      total: 20.99
-    };
-    this.webSocketService.sendOrderUpdate(newOrder);
-  }
-  completeOrder() {
+  placeOrder() {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id'];
     const res_id = this.userCartData[0]['res_id'];
     const total_price = this.userCartData.reduce((total, item) => total + (item['price'] * item['product_qty']), 0);
@@ -92,6 +84,7 @@ export class CartComponent {
 
     this.resService.sendOrderRequest(params).subscribe((res: any) => {
       if (res['status']) {
+        this.socketService.sendOrderData(params);
         this.getUserCartData()
         alert(res['msg']);
       } else {

@@ -14,7 +14,6 @@ export class TransactionsComponent {
   params:any = {}
   constructor(private resService: RestaurantService) { }
   ngOnInit() {
-    console.log(DBManagerService.getData(Constants.USER_DATA_KEY));
     this.roleId = DBManagerService.getData(Constants.USER_DATA_KEY)['role_id']
     this.getOrdersData()
   }
