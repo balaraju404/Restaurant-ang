@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "anguar": {
+    "Restaurant": {  // Update this to match your project name
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,9 +24,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/anguar",
+            "outputPath": "dist/Restaurant",  // Ensure this matches your project name
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "anguar:build:production"
+              "buildTarget": "Restaurant:build:production"  // Update to match project name
             },
             "development": {
-              "buildTarget": "anguar:build:development"
+              "buildTarget": "Restaurant:build:development"  // Update to match project name
             }
           },
           "defaultConfiguration": "development"
