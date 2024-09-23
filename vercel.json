@@ -2,8 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/main.ts",
-      "use": "@vercel/angular"
+      "src": "dist/Restaurant/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
