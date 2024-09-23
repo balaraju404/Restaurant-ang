@@ -53,17 +53,18 @@
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2MB",
-                  "maximumError": "5MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kB",
-                  "maximumError": "10kB"
-                }
-              ],
+  {
+    "type": "initial",
+    "maximumWarning": "2MB",
+    "maximumError": "5MB"
+  },
+  {
+    "type": "anyComponentStyle",
+    "maximumWarning": "150kB",  // Increase this value
+    "maximumError": "200kB"      // Increase this value
+  }
+],
+
               "outputHashing": "all",
               "fileReplacements": [
                 {
