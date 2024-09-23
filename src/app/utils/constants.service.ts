@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { DBManagerService } from "./db-manager.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class Constants {
 
-  static NODE_URL = 'http://192.168.0.127:3099/'
-  static API_URL = 'http://192.168.0.127:3099/api/'
+  static NODE_URL = environment.NODE_URL
+  static API_URL = Constants.NODE_URL + 'api/'
   static USER_DATA_KEY = 'login_user_data'
   static RES_USER_SELECTED_KEY = 'restaurant_user_selected_data'
 
