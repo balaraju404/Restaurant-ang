@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.html",
+      "src": "dist/restaurant-ang/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/index.html"
+      "dest": "/index.html"
     }
   ]
 }
