@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/anguar/browser/$1"
+      "dest": "/dist/anguar/browser/index.html"
     }
   ]
 }
