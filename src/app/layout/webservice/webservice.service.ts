@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Constants } from '../../utils/constants.service';
 
+const SOCKET_URL = Constants.NODE_URL
 @Injectable({
   providedIn: 'root',
 })
+
 export class WebSocketService {
   private socket: WebSocket;
 
@@ -12,7 +15,7 @@ export class WebSocketService {
 
   connect(): void {
     // Replace this URL with your WebSocket server's URL
-    this.socket = new WebSocket('ws://localhost:3099');
+    this.socket = new WebSocket(SOCKET_URL);
 
     this.socket.onopen = () => {
       console.log('WebSocket connection established');

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  NODE_URL: '',  // This will be filled during build
-};
+  NODE_URL: 'https://restaurant-node.vercel.app/',
+}

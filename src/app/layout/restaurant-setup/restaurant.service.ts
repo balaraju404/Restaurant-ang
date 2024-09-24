@@ -73,19 +73,19 @@ export class RestaurantService {
     return this.http.post(this.apiUrl + 'products/add', formData);
   }
   getUserCartData(params: any) {
-    return this.http.post(this.apiUrl + '/cart/details', params)
+    return this.http.post(this.apiUrl + 'cart/details', params)
   }
   postCartData(params: any) {
-    return this.http.post(this.apiUrl + '/cart/add', params)
+    return this.http.post(this.apiUrl + 'cart/add', params)
   }
   updateCartData(params: any) {
-    return this.http.put(this.apiUrl + '/cart/update', params)
+    return this.http.put(this.apiUrl + 'cart/update', params)
   }
   deleteCartItem(cart_id: any) {
     return this.http.delete(this.apiUrl + 'cart/delete/' + cart_id)
   }
   sendOrderRequest(params: any) {
-    return this.http.post(this.apiUrl + '/order/add', params)
+    return this.http.post(this.apiUrl + 'order/add', params)
   }
   getResOrders(params: any) {
     return this.http.post(this.apiUrl + 'order/details', params).pipe()
