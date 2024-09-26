@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../../utils/constants.service';
 
-const SOCKET_URL = Constants.NODE_URL
+const SOCKET_URL = 'http://localhost:3099/' || Constants.NODE_URL
 @Injectable({
   providedIn: 'root'
 })

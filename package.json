@@ -1,15 +1,14 @@
 {
-  "name": "Restaurant",
+  "name": "restaurant-ang",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "serve:ssr:restaurant-ang": "node dist/restaurant-ang/server/server.mjs"
+
   },
   "private": true,
   "dependencies": {

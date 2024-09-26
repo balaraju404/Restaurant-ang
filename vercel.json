@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/anguar/browser/**/*",
+      "src": "dist/restaurant-ang/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/anguar/browser/index.html"
+      "dest": "/dist/restaurant-ang/index.html"
     }
   ]
 }

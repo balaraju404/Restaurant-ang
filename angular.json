@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "anguar": {
+    "restaurant-ang": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,11 +22,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/anguar",
+            "outputPath": "dist/restaurant-ang",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -86,16 +86,19 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "anguar:build:production"
+              "buildTarget": "restaurant-ang:build:production"
             },
             "development": {
-              "buildTarget": "anguar:build:development"
+              "buildTarget": "restaurant-ang:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "restaurant-ang:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
