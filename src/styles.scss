@@ -160,4 +160,29 @@ thead th {
   }
 }
 
+// backgrounds
+.custom-bg-primary {
+  background-color: rgb(4, 4, 21);
+}
+
+.text-bg-clr-change {
+  letter-spacing: 10px;
+  background-image: linear-gradient(75deg, blue, purple, green, yellow, red, orange, pink, teal, lime, cyan, indigo, violet, rgb(36, 36, 156));
+  background-size: 4000px;
+  background-position: 4000px;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: text-bg-clr-change 20s infinite linear both; /* Removed quotes */
+}
+
+@keyframes text-bg-clr-change {
+  to {
+    background-position: 0;
+  }
+
+  from {
+    background-position: 4000px;
+  }
+}
+
 @import "@fortawesome/fontawesome-free/css/all.css";

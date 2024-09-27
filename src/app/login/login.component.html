@@ -1,18 +1,31 @@
 <div class="container mt-5">
-  <h1 class="text-center">Login Page</h1>
-  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="mt-4">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" class="form-control" ngModel required placeholder="Enter login name">
+  <div class="row">
+    <div class="col-md-8 col-sm-12">
+      <h1 class="text-dark">Restaurant Application</h1>
+      <p class="text-warning">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid molestias, quam ut vitae dicta, temporibus
+        magni ipsum ducimus, beatae fuga reprehenderit aliquam doloribus nisi. Quas porro enim eveniet ipsa laborum.
+      </p>
     </div>
-    <div class="form-group mt-3">
-      <label for="user_password">Password:</label>
-      <input type="password" id="password" name="password" class="form-control" ngModel required placeholder="Enter your password">
+    <div class="col-md-4 col-sm-12">
+      <h1 class="text-center text-bg-clr-change">Login Page</h1>
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="mt-4 bg-light p-4 rounded shadow">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" class="form-control" ngModel required
+            placeholder="Enter login name">
+        </div>
+        <div class="form-group mt-3">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" class="form-control" ngModel required
+            placeholder="Enter your password">
+        </div>
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a routerLink="/create" class="text-primary">Create an Account</a>
+        </div>
+      </form>
+      <p class="text-danger text-center mt-3">{{error_msg}}</p>
     </div>
-    <div class="mt-4 d-flex justify-content-between align-items-center">
-      <button type="submit" class="btn btn-primary">Login</button>
-      <a routerLink="/create" class="text-primary">Create an Account</a>
-    </div>
-  </form>
-  <p class="text-danger text-center mt-3">{{error_msg}}</p>
+  </div>
 </div>
