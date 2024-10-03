@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
 import { LayoutModule } from './layout/layout.module';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { CustomLoaderModule } from './reusable-components/loader/custom-loader.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     FormsModule,
     AppRoutingModule,
     LoginModule,
-    LayoutModule
+    LayoutModule,
+    CustomLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

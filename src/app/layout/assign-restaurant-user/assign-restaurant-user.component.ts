@@ -9,7 +9,7 @@ import { LoginService } from '../../login/login.service';
   styleUrl: './assign-restaurant-user.component.scss'
 })
 export class AssignRestaurantUserComponent {
-
+  isLoading:boolean = false;
   roles = [
     { 'role_id': 2, 'role_name': 'Restaurant Admin' },
     { 'role_id': 4, 'role_name': 'Restaurant User' }
@@ -42,17 +42,27 @@ export class AssignRestaurantUserComponent {
     this.dd_mdl_role.displayKey = 'role_name';
   }
   getRestaurants() {
+    this.isLoading=true
     this.resService.getRestaurants().subscribe((res) => {
+      this.isLoading=false
       if (res['status']) {
         this.dd_mdl_restaurants.dataArr = res['data']
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   getUsers() {
+    this.isLoading=true
     this.loginService.getUsers().subscribe((res) => {
+      this.isLoading=false
       if (res['status']) {
         this.dd_mdl_users.dataArr = res['data']
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
 
@@ -62,7 +72,9 @@ export class AssignRestaurantUserComponent {
     const res_id = this.dd_mdl_restaurants['selectedValue']
     const user_id = this.dd_mdl_users['selectedValue']
     const role_id = this.dd_mdl_role['selectedValue']
+    this.isLoading=true
     this.resService.assignuserToRestaurant(res_id, user_id, role_id).subscribe((res) => {
+      this.isLoading=false
       if (res['status']) {
         alert(res['msg'])
       }else{
@@ -72,6 +84,9 @@ export class AssignRestaurantUserComponent {
           alert(JSON.stringify(res))
         }
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
 }

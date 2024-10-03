@@ -11,6 +11,7 @@ import { Constants } from '../utils/constants.service';
   styleUrl: './create-account.component.scss'
 })
 export class CreateAccountComponent {
+  isLoading: boolean = false;
   error_msg: string;
   constructor(private loginservice: LoginService, private router: Router) { }
 
@@ -32,8 +33,9 @@ export class CreateAccountComponent {
       return this.error_msg = "Password cannot be empty";
     }
     this.error_msg = ''
-    // return
+    this.isLoading = true;
     this.loginservice.userCreate(username, loginname, userPassword, 3).subscribe(res => {
+      this.isLoading = false;
       if (res['status']) {
         alert(res['msg']);
       } else {
@@ -43,6 +45,9 @@ export class CreateAccountComponent {
           alert('Failed to create User');
         }
       }
+    }, error => {
+      this.isLoading = false;
+      this.error_msg = error.message;
     })
   }
 }

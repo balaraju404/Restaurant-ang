@@ -8,6 +8,7 @@ import { RestaurantService } from '../restaurant-setup/restaurant.service';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
+  isLoading:boolean = true;
   files: File[] = [];
   error_msg: string;
   tbl_headers = [
@@ -24,6 +25,7 @@ export class CategoriesComponent {
   }
   onCreateCategory(form: NgForm) {
     const formData = form.form.value
+    this.isLoading=true
     this.resService.createCategory(formData.categoryname, this.files, formData.description).subscribe((res: any) => {
       if (res['status']) {
         alert(res['msg'])
@@ -31,15 +33,23 @@ export class CategoriesComponent {
       } else {
         alert(JSON.stringify(res))
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   getCategories() {
+    this.isLoading=true
     this.resService.getCategories().subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         this.cat_list = res['data'];
       } else {
         this.cat_list = [];
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   onFileChange(event: any) {

@@ -4,17 +4,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
-import { CustomLoaderComponent } from '../reusable-components/loader/custom-loader.component';
+import { CustomLoaderModule } from '../reusable-components/loader/custom-loader.module';
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    CustomLoaderComponent
+    LoginComponent
   ],
   imports: [
     FormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    CustomLoaderModule
   ],
   providers: [],
   bootstrap: [LoginComponent]

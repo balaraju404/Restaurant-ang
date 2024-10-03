@@ -18,8 +18,9 @@ import { RestaurantComponent } from './user/restaurant/restaurant.component';
 import { RestaurantCategoriesComponent } from './restaurant-categories/restaurant-categories.component';
 import { CartComponent } from './user/cart/cart.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { CustomLoaderModule } from "../reusable-components/loader/custom-loader.module";
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, SideMenuComponent, RestaurantSetupComponent, UserSetupComponent, AssignRestaurantUserComponent, CreateRestaurantComponent, CategoriesComponent, ProductsComponent, RestaurantsListComponent, ShortenStringPipe, RestaurantComponent, RestaurantCategoriesComponent, CartComponent, TransactionsComponent],
-  imports: [RouterModule, FormsModule, CustomDropdownModule]
+  imports: [RouterModule, FormsModule, CustomDropdownModule, CustomLoaderModule]
 })
 export class LayoutModule { }
