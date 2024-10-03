@@ -11,6 +11,7 @@ import { Constants } from '../utils/constants.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  isLoading: boolean = false
   error_msg: string;
   constructor(private loginservice: LoginService, private router: Router) { }
 
@@ -31,11 +32,13 @@ export class LoginComponent {
       return this.error_msg = "Password cannot be empty";
     }
     this.error_msg = ''
+    this.isLoading = true
     this.loginservice.loginCheck(username, userPassword).subscribe(res => {
+      this.isLoading = false
       if (res['status']) {
         alert(res['msg']);
         DBManagerService.setData(res['data'], Constants.USER_DATA_KEY)
-        if(res['data']['role_id'] == 3){
+        if (res['data']['role_id'] == 3) {
           this.router.navigate(['/layout/restaurants']);
           return
         }
@@ -43,6 +46,9 @@ export class LoginComponent {
       } else {
         alert(res['msg'] || JSON.stringify(res));
       }
+    }, err => {
+      this.isLoading = false
+      alert(JSON.stringify(err));
     })
   }
 }
