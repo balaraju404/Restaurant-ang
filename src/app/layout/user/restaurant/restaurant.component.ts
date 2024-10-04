@@ -11,6 +11,8 @@ import { Constants } from '../../../utils/constants.service';
 })
 export class RestaurantComponent {
   isLoading: boolean = false
+  productViewStatus:boolean=false
+  selectedProductData: any = null
   res_id: any;
   restaurant_data: any = {}
   restaurant_categories: any = []
@@ -99,6 +101,15 @@ export class RestaurantComponent {
       }
       item['product_qty'] += 1;
     }
+  }
+  viewProduct(item: any) {
+    console.log(item);
+    this.productViewStatus=true
+    this.selectedProductData = item;
+  }
+  closeProduct(event:any){
+    this.productViewStatus=false
+    this.selectedProductData = null;
   }
 
   postCartData(item: any) {

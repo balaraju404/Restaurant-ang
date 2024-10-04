@@ -85,6 +85,7 @@ export class ProductsComponent {
     const params = { 'res_id': selectedData['res_id'] }
     this.isLoading = true
     this.resService.getResProducts(params).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.table_data = res['data'];
       } else {

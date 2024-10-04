@@ -8,7 +8,7 @@ import { RestaurantService } from '../restaurant-setup/restaurant.service';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
-  isLoading:boolean = true;
+  isLoading:boolean = false;
   files: File[] = [];
   error_msg: string;
   tbl_headers = [

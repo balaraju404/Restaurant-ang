@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RestaurantService } from '../../restaurant-setup/restaurant.service';
 import { DBManagerService } from '../../../utils/db-manager.service';
 import { Constants } from '../../../utils/constants.service';
-import { Subscription, interval } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { SocketService } from '../../webservice/socket-io.service';
 
 @Component({
@@ -12,13 +11,14 @@ import { SocketService } from '../../webservice/socket-io.service';
   styleUrls: ['./handle-restaurant-orders.component.scss']
 })
 export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
-  isLoading:boolean = false;
+  isLoading: boolean = false;
   orders_data: any[] = [];
   private ordersSubscription: Subscription;
 
   constructor(private resService: RestaurantService, private socketService: SocketService) { }
 
   ngOnInit() {
+    this.getOrdersData()
     this.ordersSubscription = this.socketService.getOrderUpdates().subscribe(data => {
       if (data) {
         const res_id = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)['res_id']
@@ -41,10 +41,10 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
 
   handleOrder(params, status) {
     params['status'] = status;
-    this.isLoading=true;
+    this.isLoading = true;
     this.resService.handleOrder(params).subscribe(
       (res: any) => {
-        this.isLoading=false;
+        this.isLoading = false;
         if (res['status']) {
           alert(res['msg']);
           this.getOrdersData();
@@ -53,7 +53,7 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.error('Error handling order', error);
         alert('An error occurred while handling the order.');
       }
@@ -63,16 +63,16 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
   getOrdersData() {
     const res_id = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)['res_id'];
     const params = { 'res_id': res_id, status: 1 };
-    this.isLoading=true
+    this.isLoading = true
     this.resService.getResOrders(params).subscribe(
       (res: any) => {
-        this.isLoading=false;
+        this.isLoading = false;
         if (res['status']) {
           this.orders_data = res['data'];
         }
       },
       (error) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.error('Error fetching orders data', error);
         alert(JSON.stringify(error))
       }
