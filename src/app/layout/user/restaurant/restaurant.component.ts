@@ -10,6 +10,7 @@ import { Constants } from '../../../utils/constants.service';
   styleUrl: './restaurant.component.scss'
 })
 export class RestaurantComponent {
+  isLoading: boolean = false
   res_id: any;
   restaurant_data: any = {}
   restaurant_categories: any = []
@@ -26,28 +27,43 @@ export class RestaurantComponent {
     })
   }
   getRestaurant() {
+    this.isLoading = true
     this.resService.getRestaurant(this.res_id).subscribe((res) => {
+      this.isLoading = false
       if (res['status']) {
         this.restaurant_data = res['data']
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   getResCategories() {
+    this.isLoading = true
     this.resService.getResCategories(this.res_id).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.restaurant_categories = res['data'];
       } else {
         this.restaurant_categories.dataArr = [];
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   getResProducts() {
     const params = { 'res_id': this.res_id }
+    this.isLoading = true
     this.resService.getResProducts(params).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.restaurant_products = res['data'];
         this.getUserCartData()
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   modifyProductsData(data: any[]) {
@@ -88,22 +104,32 @@ export class RestaurantComponent {
   postCartData(item: any) {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id'];
     const params = { user_id: user_id, res_id: item['res_id'], cat_id: item['cat_id'], product_id: item['product_id'], product_qty: item['product_qty'], status: 1 };
+    this.isLoading = true
     this.resService.postCartData(params).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.getUserCartData()
         alert(res['msg'])
       } else {
         alert(res['msg'] || JSON.stringify(res))
       }
+    }, error => {
+      this.isLoading = false
+      alert(error.message || JSON.stringify(error))
     })
   }
   getUserCartData() {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id'];
     const params = { user_id: user_id, res_id: this.res_id };
+    this.isLoading = true
     this.resService.getUserCartData(params).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.modifyProductsData(res['data'])
       }
+    }, error => {
+      this.isLoading = false
+      alert(error.message || JSON.stringify(error))
     })
   }
 }

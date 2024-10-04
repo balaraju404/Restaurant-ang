@@ -11,6 +11,7 @@ import { UIDropdown } from '../../reusable-components/custom-dropdown/custom-dro
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
+  isLoading: boolean = false;
   product_img: File[] = []
   images: File[] = [];
   error_msg: string;
@@ -43,12 +44,17 @@ export class ProductsComponent {
   getResCategories() {
     const selectedData = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)
     const res_id = selectedData['res_id']
+    this.isLoading = true
     this.resService.getResCategories(res_id).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         this.dd_mdl_categories.dataArr = res['data'];
       } else {
         this.dd_mdl_categories.dataArr = [];
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   onCreateProducts(form: NgForm) {
@@ -60,24 +66,33 @@ export class ProductsComponent {
     const price = formData.price
     const description = formData.description
     const images = [this.product_img, ...this.images]
+    this.isLoading = true
     this.resService.createResProduct(res_id, cat_id, product_name, images, price, description).subscribe((res: any) => {
+      this.isLoading = false
       if (res['status']) {
         alert(res['msg'])
         this.getProducts()
       } else {
         alert(JSON.stringify(res))
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   getProducts() {
     const selectedData = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)
     const params = { 'res_id': selectedData['res_id'] }
+    this.isLoading = true
     this.resService.getResProducts(params).subscribe((res: any) => {
       if (res['status']) {
         this.table_data = res['data'];
       } else {
         this.table_data = [];
       }
+    }, error => {
+      this.isLoading = false
+      alert(JSON.stringify(error))
     })
   }
   onMultipleFileChange(event: any) {

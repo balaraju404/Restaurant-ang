@@ -12,6 +12,7 @@ import { SocketService } from '../../webservice/socket-io.service';
   styleUrls: ['./handle-restaurant-orders.component.scss']
 })
 export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
+  isLoading:boolean = false;
   orders_data: any[] = [];
   private ordersSubscription: Subscription;
 
@@ -40,8 +41,10 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
 
   handleOrder(params, status) {
     params['status'] = status;
+    this.isLoading=true;
     this.resService.handleOrder(params).subscribe(
       (res: any) => {
+        this.isLoading=false;
         if (res['status']) {
           alert(res['msg']);
           this.getOrdersData();
@@ -50,6 +53,7 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
+        this.isLoading=false;
         console.error('Error handling order', error);
         alert('An error occurred while handling the order.');
       }
@@ -59,15 +63,18 @@ export class HandleRestaurantOrdersComponent implements OnInit, OnDestroy {
   getOrdersData() {
     const res_id = DBManagerService.getData(Constants.RES_USER_SELECTED_KEY)['res_id'];
     const params = { 'res_id': res_id, status: 1 };
-
+    this.isLoading=true
     this.resService.getResOrders(params).subscribe(
       (res: any) => {
+        this.isLoading=false;
         if (res['status']) {
           this.orders_data = res['data'];
         }
       },
       (error) => {
+        this.isLoading=false;
         console.error('Error fetching orders data', error);
+        alert(JSON.stringify(error))
       }
     );
   }

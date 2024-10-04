@@ -10,6 +10,7 @@ import { SocketService } from '../../webservice/socket-io.service';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
+  isLoading:boolean=false
   userCartData: any[] = []
 
   constructor(private resService: RestaurantService,private socketService: SocketService) { }
@@ -21,10 +22,15 @@ export class CartComponent {
   getUserCartData() {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id']
     const params = { 'user_id': user_id, 'status': 1 }
+    this.isLoading=true
     this.resService.getUserCartData(params).subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         this.userCartData = res['data'];
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   getTotalPrice() {
@@ -49,26 +55,36 @@ export class CartComponent {
   updateCartData(item: any) {
     const user_id = DBManagerService.getData(Constants.USER_DATA_KEY)['user_id'];
     const params = { cart_id: item['cart_id'], user_id: user_id, res_id: item['res_id'], cat_id: item['cat_id'], product_id: item['product_id'], product_qty: item['product_qty'], status: 1 };
+    this.isLoading=true
     this.resService.updateCartData(params).subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         this.getUserCartData()
         alert(res['msg'])
       } else {
         alert(res['msg'] || JSON.stringify(res))
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   deleteItem(cart_id: any) {
     if (!confirm('Are you sure , you want to delete item ?')) {
       return
     }
+    this.isLoading=true
     this.resService.deleteCartItem(cart_id).subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         this.getUserCartData()
         alert(res['msg'])
       } else {
         alert(res['msg'] || JSON.stringify(res))
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   placeOrder() {
@@ -81,8 +97,9 @@ export class CartComponent {
     });
 
     const params = { 'user_id': user_id, 'res_id': res_id, 'total_price': total_price, 'products_data': products_data, 'status': 1 };
-
+    this.isLoading=true
     this.resService.sendOrderRequest(params).subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         this.socketService.sendOrderData(params);
         this.getUserCartData()
@@ -90,6 +107,9 @@ export class CartComponent {
       } else {
         alert(res['msg'] || JSON.stringify(res));
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     });
   }
   getcurrentLocation() {

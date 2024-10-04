@@ -8,6 +8,7 @@ import { RestaurantService } from '../restaurant.service';
   styleUrl: './create-restaurant.component.scss'
 })
 export class CreateRestaurantComponent {
+  isLoading:boolean=false;
   files: File[] = [];
   error_msg: string;
   tbl_headers = [
@@ -24,22 +25,32 @@ export class CreateRestaurantComponent {
   }
   onCreateRestaurant(form: NgForm) {
     const formData = form.form.value
+    this.isLoading = true;
     this.resService.restaurantCreate(formData.restaurantname, this.files,formData.description).subscribe((res: any) => {
+      this.isLoading=false
       if (res['status']) {
         alert(res['msg'])
         this.getRestaurants()
       } else {
         alert(JSON.stringify(res))
       }
+    },error=>{
+      this.isLoading=false
+      alert(error.error.msg || JSON.stringify(error))
     })
   }
   getRestaurants() {
+    this.isLoading = true;
     this.resService.getRestaurants().subscribe((res: any) => {
+      this.isLoading = false;
       if (res['status']) {
         this.restaurant_list = res['data'];
       } else {
         this.restaurant_list = [];
       }
+    },error=>{
+      this.isLoading=false
+      alert(JSON.stringify(error))
     })
   }
   onFileChange(event: any) {

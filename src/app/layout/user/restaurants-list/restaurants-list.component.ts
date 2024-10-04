@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './restaurants-list.component.scss'
 })
 export class RestaurantsListComponent {
-
+  isLoading:boolean=false;
   restaurants_list: any = []
   duplicate_list: any[] = []
   paginationObj: any = { 'page_num': 1, 'page_limit': 10 }
@@ -18,11 +18,16 @@ export class RestaurantsListComponent {
     this.getAllRestaurants();
   }
   getAllRestaurants() {
+    this.isLoading = true;
     this.resService.getRestaurants().subscribe((res: any) => {
+      this.isLoading = false;
       if (res['status']) {
         this.restaurants_list = res['data'];
         this.duplicate_list = JSON.parse(JSON.stringify(res['data']))
       }
+    },error=>{
+      this.isLoading = false;
+      alert(JSON.stringify(error))
     })
   }
   onSearch(event: string) {

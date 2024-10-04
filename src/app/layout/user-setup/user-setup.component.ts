@@ -8,6 +8,7 @@ import { LoginService } from '../../login/login.service';
   styleUrl: './user-setup.component.scss'
 })
 export class UserSetupComponent {
+  isLoading: boolean = false
   roles: any = [
     { 'role_id': 1, 'role_name': 'System Admin' },
     { 'role_id': 2, 'role_name': 'Restaurant Admin' },
@@ -24,17 +25,18 @@ export class UserSetupComponent {
 
   onCreateUser(form: NgForm) {
     const formData = form.form.value
-    this.loginService.userCreate(formData.username, formData.loginname, formData.password, formData.role_id).subscribe((res:any)=>{
-      if(res['status']){
+    this.isLoading = true
+    this.loginService.userCreate(formData.username, formData.loginname, formData.password, formData.role_id).subscribe((res: any) => {
+      this.isLoading = false
+      if (res['status']) {
         alert(res['msg'])
         form.resetForm()
-      }else{
-        if(res['msg']){
-          alert(res['msg'])
-        }else{
-          alert(JSON.stringify(res))
-        }
+      } else {
+        alert(res['msg'] || JSON.stringify(res))
       }
+    }, error => {
+      this.isLoading = false
+      alert(error.error.msg || JSON.stringify(error))
     })
   }
 }
